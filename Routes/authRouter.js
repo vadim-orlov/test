@@ -1,9 +1,10 @@
 const Router = require('express')
+const Recaptcha = require('express-recaptcha').RecaptchaV3;
 const cors = require('cors')
 const router = new Router()
-const controller = require('./authController')
+const controller = require('../Controllers/authController')
 const {check} = require('express-validator')
-const authMiddleware = require('./middleware/authMiddleware')
+const authMiddleware = require('../middleware/authMiddleware')
 
 
 
