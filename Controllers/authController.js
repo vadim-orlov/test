@@ -7,9 +7,10 @@ const {validationResult} = require('express-validator')
 const jwt = require('jsonwebtoken')
 const {secret} = require('../config')
 const Captcha = require('node-captcha-generator');
+require('dotenv').config()
 
 var storage={};
-const RECAPTCHA_EXPIRE_TIME = 3; 
+
 
 const generateAccessToken = (id, roles) => {
     const payload = {
@@ -30,8 +31,8 @@ class authController {
             if(candidate) {
                 return res.status(400).json({success:false, message: 'Пользователь с таким именем уже существует'})
             }
-            
-            if ( storage[email] && (new Date().getTime()- new Date(storage[email].time).getTime())/60000 < RECAPTCHA_EXPIRE_TIME ) {
+
+            if ( storage[email] && (new Date().getTime()- new Date(storage[email].time).getTime())/60000 < proccess.env.RECAPTCHA_EXPIRE_TIME ) {
                 return res.status(400).json ( {success:false, message: "You requested too frequently"})
             }
 
@@ -101,7 +102,7 @@ class authController {
                 return res.status(400).json ( {success:false, message: "Recaptcha code is invalid"})
             }
 
-            if ( (new Date().getTime()- new Date(storage[email].time).getTime())/60000 > RECAPTCHA_EXPIRE_TIME ) {
+            if ( (new Date().getTime()- new Date(storage[email].time).getTime())/60000 > proccess.env.RECAPTCHA_EXPIRE_TIME) {
                 storage[email].attempt= storage[email].attempt + 1;
                 return res.status(400).json ( {success:false, message: "Recaptcha code is expired"})
             }
