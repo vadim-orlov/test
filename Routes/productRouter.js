@@ -1,5 +1,4 @@
 const Router = require('express')
-const Recaptcha = require('express-recaptcha').RecaptchaV3;
 const cors = require('cors')
 const productRouter = new Router()
 const ProductController = require('../Controllers/productController')

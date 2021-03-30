@@ -12,6 +12,25 @@ const Recaptcha = require('express-recaptcha').RecaptchaV3;
 const app = express()
 
 
+
+// recaptcha
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 app.use('/auth',authRouter)
